@@ -1,12 +1,14 @@
-import org.omg.CosNaming.*;
-import org.omg.CosNaming.NamingContextPackage.*;
-import org.omg.CORBA.*;
-import org.omg.PortableServer.*;
+import HelloApp.Hello;
+import HelloApp.HelloHelper;
+import org.omg.CORBA.ORB;
+import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContextExt;
+import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
-import HelloApp.*;
+import org.omg.PortableServer.POAHelper;
 
 public class HelloServer {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             // create and initialize the ORB
             ORB orb = ORB.init(args, null);
@@ -28,7 +30,7 @@ public class HelloServer {
             NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
             // bind the Object Reference in Naming
             String name = "Hello";
-            NameComponent path[] = ncRef.to_name(name);
+            NameComponent[] path = ncRef.to_name(name);
             ncRef.rebind(path, href);
             System.out.println("HelloServer ready and waiting ...");
             // wait for invocations from clients
